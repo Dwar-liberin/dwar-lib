@@ -35,7 +35,8 @@ class AnimationManager {
     targetPosition,
     duration,
     initialPosition = null,
-    slide = SlideSide.RIGHT
+    slide = SlideSide.RIGHT,
+    delay
   ) {
     var _a;
     this.addObject(object);
@@ -49,13 +50,15 @@ class AnimationManager {
     const finalPosition =
       targetPosition !== null ? targetPosition : originalPosition.x;
     object.position.x = startPosition;
-    new TWEEN.Tween(object.position)
-      .to({ x: finalPosition }, duration)
-      .easing(TWEEN.Easing.Quadratic.Out)
-      .start();
+    setTimeout(() => {
+      new TWEEN.Tween(object.position)
+        .to({ x: finalPosition }, duration)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    }, delay);
   }
   // Method to animate scaling up
-  animateScaleUp(object, scaleFactor, duration, initialScale = null) {
+  animateScaleUp(object, scaleFactor, duration, initialScale = null, delay) {
     var _a;
     this.addObject(object);
     const originalScale =
@@ -67,13 +70,15 @@ class AnimationManager {
       initialScale !== null ? initialScale : originalScale.x / scaleFactor;
     const finalScale = originalScale.x;
     object.scale.set(startScale, startScale, startScale);
-    new TWEEN.Tween(object.scale)
-      .to({ x: finalScale, y: finalScale, z: finalScale }, duration)
-      .easing(TWEEN.Easing.Quadratic.Out)
-      .start();
+    setTimeout(() => {
+      new TWEEN.Tween(object.scale)
+        .to({ x: finalScale, y: finalScale, z: finalScale }, duration)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    }, delay);
   }
   // Method to animate scaling down
-  animateScaleDown(object, scaleFactor, duration, initialScale = null) {
+  animateScaleDown(object, scaleFactor, duration, initialScale = null, delay) {
     var _a;
     this.addObject(object);
     const originalScale =
@@ -85,34 +90,40 @@ class AnimationManager {
       initialScale !== null ? initialScale : originalScale.x * scaleFactor;
     const finalScale = originalScale.x;
     object.scale.set(startScale, startScale, startScale);
-    new TWEEN.Tween(object.scale)
-      .to({ x: finalScale, y: finalScale, z: finalScale }, duration)
-      .easing(TWEEN.Easing.Quadratic.Out)
-      .start();
+    setTimeout(() => {
+      new TWEEN.Tween(object.scale)
+        .to({ x: finalScale, y: finalScale, z: finalScale }, duration)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    }, delay);
   }
   // Method to animate fading in
-  animateFadeIn(object, duration) {
+  animateFadeIn(object, duration, delay) {
     this.addObject(object);
     const material = object.material;
     material.transparent = true;
     material.opacity = 0;
-    new TWEEN.Tween(material)
-      .to({ opacity: 1 }, duration)
-      .easing(TWEEN.Easing.Quadratic.Out)
-      .start();
+    setTimeout(() => {
+      new TWEEN.Tween(material)
+        .to({ opacity: 1 }, duration)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    }, delay);
   }
   // Method to animate fading out
-  animateFadeOut(object, duration) {
+  animateFadeOut(object, duration, delay) {
     this.addObject(object);
     const material = object.material;
     material.transparent = true;
     material.opacity = 1;
-    new TWEEN.Tween(material)
-      .to({ opacity: 0 }, duration)
-      .easing(TWEEN.Easing.Quadratic.Out)
-      .start();
+    setTimeout(() => {
+      new TWEEN.Tween(material)
+        .to({ opacity: 0 }, duration)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    }, delay);
   }
-  animateBounce(object, axis = "z", distance, duration) {
+  animateBounce(object, axis = "z", distance, duration, delay) {
     var _a;
     this.addObject(object);
     const originalPosition =
@@ -143,10 +154,12 @@ class AnimationManager {
     bounceUp2.chain(bounceDown2);
     bounceDown2.chain(bounceUp3);
     bounceUp3.chain(bounceDown3);
-    bounceUp1.start();
+    setTimeout(() => {
+      bounceUp1.start();
+    }, delay);
   }
   // Method to animate sliding up from below the screen to the original position
-  animateSlideUp(object, duration, initialPositionY = null) {
+  animateSlideUp(object, duration, initialPositionY = null, delay) {
     var _a;
     this.addObject(object);
     const originalPosition =
@@ -158,13 +171,15 @@ class AnimationManager {
       initialPositionY !== null ? initialPositionY : originalPosition.y - 5;
     const finalPositionY = originalPosition.y;
     object.position.y = startPositionY;
-    new TWEEN.Tween(object.position)
-      .to({ y: finalPositionY }, duration)
-      .easing(TWEEN.Easing.Quadratic.Out)
-      .start();
+    setTimeout(() => {
+      new TWEEN.Tween(object.position)
+        .to({ y: finalPositionY }, duration)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    }, delay);
   }
   // Method to animate sliding down from above the screen to the original position
-  animateSlideDown(object, duration, initialPositionY = null) {
+  animateSlideDown(object, duration, initialPositionY = null, delay) {
     var _a;
     this.addObject(object);
     const originalPosition =
@@ -176,10 +191,12 @@ class AnimationManager {
       initialPositionY !== null ? initialPositionY : originalPosition.y + 5;
     const finalPositionY = originalPosition.y;
     object.position.y = startPositionY;
-    new TWEEN.Tween(object.position)
-      .to({ y: finalPositionY }, duration)
-      .easing(TWEEN.Easing.Quadratic.Out)
-      .start();
+    setTimeout(() => {
+      new TWEEN.Tween(object.position)
+        .to({ y: finalPositionY }, duration)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    }, delay);
   }
 }
 window.AnimationManager = AnimationManager;
